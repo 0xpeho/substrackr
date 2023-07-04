@@ -1,0 +1,7 @@
+{
+  "name": "SubsTrakr",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
