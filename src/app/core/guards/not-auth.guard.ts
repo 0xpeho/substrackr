@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import {DASHBOARD} from "../constants/router.constants";
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class NotAuthGuard implements CanActivate {
     const isAuth = this.authService.isAuthenticated().getValue();
 
     if (isAuth) {
-      this.router.navigate(['/dashboard']);
+      this.router.navigate([DASHBOARD],{replaceUrl:true});
       return false;
     }
     return true;

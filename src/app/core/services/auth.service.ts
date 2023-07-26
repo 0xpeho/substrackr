@@ -1,18 +1,20 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
-import { UnauthorizedError } from '../errors/unauthorized.error';
-import { ACCESS_TOKEN_LOCAL_STORAGE_KEY, REFRESH_TOKEN_LOCAL_STORAGE_KEY } from '../../shared/constants/auth.constant';
-import { AccessRefreshTokenDto } from '../dtos/auth/access-refresh-token.dto';
-import jwt_decode from 'jwt-decode';
-import { NoneVoidFunctionType } from '../types/none-void-function.type';
 import { BehaviorSubject } from 'rxjs';
+import {AuthCredentialsDto} from "../dto/auth-credentials.dto";
+import {AccessTokenDto} from "../dto/access-token.dto";
+import {ACCESS_TOKEN_LOCAL_STORAGE_KEY} from "../constants/auth.constants";
+import {NoneVoidFunctionType} from "../types/none-void-function.type";
+import {FirebaseMessaging, GetTokenOptions} from "@capacitor-firebase/messaging";
+import {environment} from "../../../environments/environment";
+import {Capacitor} from "@capacitor/core";
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService implements OnDestroy {
+export class AuthService{
   private isAuth = new BehaviorSubject(false);
-  private autoSignInTimeout: NodeJS.Timeout;
+  private isGuest = new BehaviorSubject(false);
   private onAuthSuccessCallbacks: NoneVoidFunctionType[] = [];
   private onSignOutCallbacks: NoneVoidFunctionType[] = [];
 
@@ -20,15 +22,8 @@ export class AuthService implements OnDestroy {
 
   public async init(): Promise<void> {
     await this.autoSignIn();
-    this.setAutoSignInTimeout();
   }
 
-  public ngOnDestroy(): void {
-    if (this.autoSignInTimeout) {
-      clearTimeout(this.autoSignInTimeout);
-    }
-    this.invokeOnSignOutCallbacks();
-  }
 
   private async autoSignIn(): Promise<void> {
     const storedAccessToken = localStorage.getItem(ACCESS_TOKEN_LOCAL_STORAGE_KEY);
@@ -38,56 +33,49 @@ export class AuthService implements OnDestroy {
       this.invokeOnAuthSuccessCallbacks();
       return;
     }
-
-    const storedRefreshToken = localStorage.getItem(REFRESH_TOKEN_LOCAL_STORAGE_KEY);
-
-    if (storedAccessToken && storedRefreshToken) {
-      await this.refreshToken(storedAccessToken, storedRefreshToken);
-    }
   }
 
-  public async signIn(email: string, password: string): Promise<void> {
+  public async signIn(credentials:AuthCredentialsDto): Promise<void> {
     if (this.isAuth.getValue()) {
       return;
     }
 
     try {
-      const result = await this.httpService.signIn({ email, password });
+      const result = await this.httpService.signIn(credentials);
 
       this.onAuthSuccess(result);
     } catch (err) {
-      throw new UnauthorizedError(err.error.error, err.error.message);
+      throw new Error()
     }
     return;
   }
 
-  public async signInForUser(userId: string, token: string): Promise<void> {
+  public async signInAsGuest(deviceId:string): Promise<void> {
     if (this.isAuth.getValue()) {
       return;
     }
 
     try {
-      const result = await this.httpService.signInForUser({ userId, token });
-
+      const result = await this.httpService.signInAsGuest({deviceId});
+      this.isGuest.next(true)
       this.onAuthSuccess(result);
     } catch (err) {
-      throw new UnauthorizedError(err.error.error, err.error.message);
+      throw new Error()
     }
     return;
   }
 
-  public async signUp(email: string, password: string): Promise<void> {
+
+  public async signUp(credentials:AuthCredentialsDto): Promise<void> {
     if (this.isAuth.getValue()) {
       return;
     }
 
     try {
-      const result = await this.httpService.signUp({ email, password });
-
-      // disable auto sign-in after signup
-      // this.onAuthSuccess(result);
+      const result = await this.httpService.signUp(credentials);
+      this.onAuthSuccess(result);
     } catch (err) {
-      throw new UnauthorizedError(err.error.error, err.error.message);
+      throw new Error();
     }
     return;
   }
@@ -96,31 +84,21 @@ export class AuthService implements OnDestroy {
     this.isAuth.next(false);
 
     localStorage.removeItem(ACCESS_TOKEN_LOCAL_STORAGE_KEY);
-    localStorage.removeItem(REFRESH_TOKEN_LOCAL_STORAGE_KEY);
 
     this.invokeOnSignOutCallbacks();
   }
 
-  public async refreshToken(accessToken: string, refreshToken: string): Promise<void> {
-    try {
-      const result = await this.httpService.refresh({ accessToken, refreshToken });
 
-      this.onAuthSuccess(result);
-    } catch (err) {
-      this.onSignOut();
-    }
-  }
-
-  private onAuthSuccess(accessRefreshTokenDto: AccessRefreshTokenDto): void {
+  private onAuthSuccess(accessToken: AccessTokenDto): void {
     this.isAuth.next(true);
 
-    localStorage.setItem(ACCESS_TOKEN_LOCAL_STORAGE_KEY, accessRefreshTokenDto.accessToken);
-    localStorage.setItem(REFRESH_TOKEN_LOCAL_STORAGE_KEY, accessRefreshTokenDto.refreshToken);
+    localStorage.setItem(ACCESS_TOKEN_LOCAL_STORAGE_KEY, accessToken.accessToken);
+
 
     this.invokeOnAuthSuccessCallbacks();
 
-    this.setAutoSignInTimeout();
   }
+
 
   private async verifyAccessToken(): Promise<boolean> {
     try {
@@ -132,27 +110,16 @@ export class AuthService implements OnDestroy {
     }
   }
 
+
+
   public isAuthenticated(): BehaviorSubject<boolean> {
     return this.isAuth;
   }
 
-  private setAutoSignInTimeout(): void {
-    const storedAccessToken = localStorage.getItem(ACCESS_TOKEN_LOCAL_STORAGE_KEY);
-
-    if (storedAccessToken) {
-      const accessTokenExpiry = (jwt_decode(storedAccessToken) as { exp: number }).exp;
-
-      const msToAccessTokenExpiry = accessTokenExpiry * 1000 - new Date().getTime();
-
-      if (msToAccessTokenExpiry < 0) {
-        return;
-      }
-      if (this.autoSignInTimeout) {
-        clearTimeout(this.autoSignInTimeout);
-      }
-      this.autoSignInTimeout = setTimeout(this.autoSignIn.bind(this), msToAccessTokenExpiry);
-    }
+  public isUserGuest(): BehaviorSubject<boolean> {
+    return this.isGuest;
   }
+
 
   public registerOnAuthSuccessCallback(fn: NoneVoidFunctionType): void {
     this.onAuthSuccessCallbacks.push(fn);
@@ -168,5 +135,21 @@ export class AuthService implements OnDestroy {
 
   private invokeOnSignOutCallbacks(): void {
     this.onSignOutCallbacks.forEach((fn: NoneVoidFunctionType) => fn());
+  }
+
+  public async requestPermissions(): Promise<void> {
+    await FirebaseMessaging.requestPermissions();
+  }
+
+  public async getToken(): Promise<string> {
+    const options: GetTokenOptions = {
+      vapidKey: environment.firebase.vapidKey,
+    };
+    if (Capacitor.getPlatform() === "web") {
+      options.serviceWorkerRegistration =
+        await navigator.serviceWorker.register("firebase-messaging-sw.js");
+    }
+    const {token} = await FirebaseMessaging.getToken(options);
+    return token;
   }
 }

@@ -1,0 +1,85 @@
+{
+  "navigation": {
+    "dashboard": "Dashboard",
+    "finances": "Your Finances",
+    "settings": "Settings"
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "guestLogin": "Login as Guest",
+    "startScreen": "Login Options"
+  },
+  "settings": {
+    "alerts": "Alerts",
+    "theme": "Theme",
+    "theme-dark": "Dark",
+    "theme-light": "Light",
+    "theme-auto": "Auto",
+    "language": "Language",
+    "currency": "Currency",
+    "sign-out": "Sign out",
+    "createFromGuest": "Create a Account from Guest Account"
+  },
+  "subscription": {
+    "title": "Title",
+    "description": "Description",
+    "price": "Price",
+    "cycle": "Payment Cycle",
+    "paymentType": "Payment Type",
+    "firstPayment": "First Payment",
+    "nextPayment": "Next Payment",
+    "alerts": "Alerts",
+    "category": "Category",
+    "addCategory": "Add a new Category",
+    "cancel": "Cancel",
+    "close": "Close",
+    "enterTitle": "Enter the title",
+    "enterDescription": "Enter a Description",
+    "enterPrice": "Enter a Price",
+    "enterPaymentType": "Enter the Payment type",
+    "monthly": "monthly",
+    "yearly": "yearly",
+    "exit": "Exit",
+    "save": "Save",
+    "delete": "Delete this Subscription",
+    "renew": "Renew Subscription",
+    "confirm": "Confirm",
+    "deleteConfirmHeader": "Delete Subscription?",
+    "deleteConfirmSubHeader": "Are you sure you want to delete this Subscription?"
+},
+  "finances": {
+    "category": "Category",
+    "subscription": "Subscription",
+    "yourExpenses": "Your Expenses",
+    "expenses": "Expenses",
+    "allTimeExpenses": "All Time Expenses"
+  },
+  "months": {
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December",
+    "wholeYear": "whole Year"
+  },
+  "EUR": "€",
+  "DOL": "$",
+  "validation": {
+    "required": "This Field is required",
+    "minLength": "Min. 8 characters",
+    "hasNumber": "Min. 1 Number",
+    "capitalCase": "Min. 1 capital Case",
+    "smallCase": "Min. 1 small Case",
+    "specialChar": "Min. 1 special Character",
+    "email": "Invalid email address",
+    "number": "Price must be greater than 0"
+  }
+}

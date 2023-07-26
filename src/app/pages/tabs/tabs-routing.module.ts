@@ -1,35 +1,37 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
-import {AuthGuard} from "../../guards/auth.guard";
+import {AuthGuard} from "../../core/guards/auth.guard";
+import {Dashboard} from "../dashboard/dashbaord.component";
+import {DASHBOARD} from "../../core/constants/router.constants";
+import {Finance} from "../finances/finance.component";
+import {Settings} from "../settings/settings.component";
 
 const routes: Routes = [
   {
-    path: 'tabs',
+    path: '',
     component: TabsPage,
     children: [
       {
         path: 'dashboard',
-        loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardPageModule)
+        component:Dashboard
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
-      },
+        path: 'finances',
+        component:Finance      },
       {
-        path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
-      },
+        path: 'settings',
+        component:Settings      },
       {
         path: '',
-        redirectTo: '/tabs/dashboard',
+        redirectTo: DASHBOARD,
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/dashboard',
+    redirectTo: DASHBOARD,
     pathMatch: 'full'
   }
 ];

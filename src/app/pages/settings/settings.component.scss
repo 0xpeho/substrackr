@@ -1,0 +1,7 @@
+div.item-native{
+  justify-content: center !important;
+}
+
+ion-select::part(container) {
+  --highlight-color: none;
+}

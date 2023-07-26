@@ -1,0 +1,22 @@
+.add{
+  --background:var(--ion-add-card);
+}
+
+.w-last-row{
+  width: -webkit-fill-available;
+}
+
+ion-icon {
+  font-size: 31px;
+}
+
+.red-dot {
+  width: 18px;
+  height: 18px;
+  background-color: var(--ion-color-danger);
+  border-radius: 50%;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+

@@ -1,7 +1,8 @@
 import { IsNotEmpty } from "class-validator";
-import { CurrencyEnum } from "../../user/enum/currency.enum";
-import { LanguageEnum } from "../../user/enum/language.enum";
-import { ThemeEnum } from "../../user/enum/theme.enum";
+import {CurrencyEnum} from "../enum/currency.enum";
+import {LanguageEnum} from "../enum/language.enum";
+import {ThemeEnum} from "../enum/theme.enum";
+
 
 
 export class SettingsDto {
@@ -9,7 +10,7 @@ export class SettingsDto {
   currency: CurrencyEnum;
 
   @IsNotEmpty()
-  description: LanguageEnum;
+  language: LanguageEnum;
 
   @IsNotEmpty()
   theme: ThemeEnum

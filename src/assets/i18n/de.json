@@ -1,0 +1,85 @@
+{
+  "navigation": {
+    "dashboard": "Dashboard",
+    "finances": "deine Finanzen",
+    "settings": "Einstellungen"
+  },
+  "auth": {
+    "signIn": "Anmelden",
+    "signUp": "Regestrieren",
+    "guestLogin": "Als Gast anmelden",
+    "startScreen": "Anmeldeoption wählen"
+  },
+  "settings": {
+    "alerts": "Benachrichtigungen",
+    "theme": "Design",
+    "theme-dark": "Dunkel",
+    "theme-light": "Hell",
+    "theme-auto": "Automatisch",
+    "language": "Sprache",
+    "currency": "Währung",
+    "sign-out": "Abmelden",
+    "createFromGuest": "Konto from Gastkonto erstellen"
+  },
+  "subscription": {
+    "title": "Titel",
+    "description": "Beschreibung",
+    "price": "Preis",
+    "cycle": "Zahlzyklus",
+    "paymentType": "Zahlungsart",
+    "firstPayment": "Erste Zahlung",
+    "nextPayment": "Nächste Zahlung",
+    "alerts": "Benachrichtigungen",
+    "category": "Kategorie",
+    "addCategory": "Füge eine Kategorie hinzu",
+    "cancel": "Abbrechen",
+    "close": "Schließen",
+    "enterTitle": "Geben Sie einen Titel ein",
+    "enterDescription": "Geben Sie eine Beschreibung ein",
+    "enterPrice": "Geben Sie einen Preis ein",
+    "enterPaymentType": "Geben Sie ihre Zahlungsart ein",
+    "monthly": "Monatlich",
+    "yearly": "Jährlich",
+    "exit": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Dieses Abonnement löschen",
+    "renew": "Abo erneuern",
+    "confirm": "Bestätigen",
+    "deleteConfirmHeader": "Abbonement Löschen?",
+    "deleteConfirmSubHeader": "Wollen Sie dieses Abbonement wirklich löschen?"
+  },
+  "finances": {
+    "category": "Kategorie",
+    "subscription": "Abonnement",
+    "yourExpenses": "Deine Ausgaben",
+    "expenses": "Ausgaben",
+    "allTimeExpenses": "Deine Allzeit Ausgaben"
+  },
+  "months": {
+    "january": "Januar",
+    "february": "Februar",
+    "march": "März",
+    "april": "April",
+    "may": "Mai",
+    "june": "Juni",
+    "july": "Juli",
+    "august": "August",
+    "september": "September",
+    "october": "Oktober",
+    "november": "November",
+    "december": "Dezember",
+    "wholeYear": "ganzjährig"
+  },
+  "EUR": "€",
+  "DOL": "$",
+  "validation": {
+    "required": "Dieses Feld ist erforderlich",
+    "minLength": "Min. 8 Zeichen",
+    "hasNumber": "Min. 1 Zahl",
+    "capitalCase": "Min. 1 Großbuchstabe",
+    "smallCase": "Min. 1 Kleinbuchstabe",
+    "specialChar": "Min. 1 spezial Zeichen",
+    "email": "Ungültige Email Adresse"
+
+  }
+}

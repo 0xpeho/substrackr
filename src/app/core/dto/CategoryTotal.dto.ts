@@ -1,11 +1,12 @@
 import { IsNotEmpty } from "class-validator";
-import { Category } from "../category.entity";
-import { SubscriptionDto } from "../../subscription/dto/subscription.dto";
+import {CategoryDto} from "./category.dto";
+import {SubscriptionDto} from "./subscription.dto";
+
 
 export class CategoryTotalDto {
 
   @IsNotEmpty()
-  category:Category;
+  category:CategoryDto;
 
   @IsNotEmpty()
   total:number

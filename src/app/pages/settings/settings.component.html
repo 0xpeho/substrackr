@@ -1,9 +1,67 @@
-<app-header [CurrentTab]="SETTINGS"></app-header>
+<app-header [CurrentTab]="SETTINGS" [showToolbar]="true" [translationForTitle]="'navigation.settings'"></app-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" >
+  <div class="flex flex-col mx-auto max-w-screen-sm">
+  <ion-list inset="true" *ngIf="showAlerts">
+  <ion-item >
+    <ion-toggle [(ngModel)]="alerts" (ionChange)="requestPermissions()">{{'settings.alerts' | translate}}</ion-toggle>
+  </ion-item>
+  </ion-list>
+
+  <ion-list inset="true" lines="none">
+  <ion-item class="ion-text-center">
+      <ion-select
+        class="always-flip"
+        toggleIcon="caret-down-sharp"
+        interface="popover"
+        label="{{'settings.theme' | translate}}"
+        placeholder="Select cycle"
+        [(ngModel)]="colorScheme"
+        (ionChange)="colorSchemeChanged()"
+      >
+        <ion-select-option [value]="'auto'">{{'settings.theme-auto' | translate}}</ion-select-option>
+        <ion-select-option [value]="'dark'">{{'settings.theme-dark' | translate}}</ion-select-option>
+        <ion-select-option [value]="'light'">{{'settings.theme-light' | translate}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+</ion-list>
+
+  <ion-list inset="true">
+  <ion-item>
+    <ion-select
+      class="always-flip"
+      toggleIcon="caret-down-sharp"
+      interface="popover"
+      label="{{'settings.currency'| translate}}"
+      placeholder="Select cycle"
+      [(ngModel)]="currency"
+      (ionChange)="saveCurrency()"
+    >
+      <ion-select-option [value]="EURO">Euro</ion-select-option>
+      <ion-select-option [value]="DOLLAR">Dollar</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-select
+      class="always-flip"
+      toggleIcon="caret-down-sharp"
+      interface="popover"
+      label="{{'settings.language'| translate}}"
+      placeholder="Select cycle"
+      [(ngModel)]="language"
+      (ionChange)="saveLanguage()"
+    >
+      <ion-select-option [value]="ENGLISH">English</ion-select-option>
+      <ion-select-option [value]="GERMAN">Deutsch</ion-select-option>
+    </ion-select>
+  </ion-item>
+  </ion-list>
+
+  <ion-button *ngIf="isUserGuest" (click)="goToSignUpFromGuest()"
+              fill="clear">{{'settings.createFromGuest' | translate}}</ion-button>
+  <ion-button *ngIf="!isUserGuest" (click)="signOut()" fill="clear"
+              color="danger">{{'settings.sign-out' | translate}}</ion-button>
+
+  </div>
 </ion-content>

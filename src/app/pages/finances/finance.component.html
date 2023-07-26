@@ -1,15 +1,113 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [CurrentTab]="FINANCES" [showToolbar]="true" [translationForTitle]="'navigation.finances'"></app-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card class="md:max-w-5xl  lg:mx-auto p-2 lg:p-8 rounded-3xl">
+  <div class="flex items-center flex-col md:items-start">
+    <div class="w-full md:grid md:grid-rows-1 md:grid-flow-col ">
+      <div>
+        <ion-card class="p-4 rounded-3xl finance-cards">
+          <ion-card-title class="text-center">
+            {{'finances.yourExpenses' | translate}}
+          </ion-card-title>
+          <ion-card-title class="text-center">
+            {{total}}{{currency| translate}}
+          </ion-card-title>
+        </ion-card>
+        <ion-card class="p-4 rounded-3xl finance-cards">
+          <ion-card-title class="text-center">
+            {{'finances.allTimeExpenses' | translate}}
+          </ion-card-title>
+          <ion-card-title class="text-center">
+            {{allTimeExpenses}}{{currency| translate}}
+          </ion-card-title>
+        </ion-card>
+      </div>
+      <div>
+        <div class="flex mx-2.5 md:h-1/2 md:items-center">
+            <ion-select interface="popover" placeholder="Select a year" class="rounded-3xl flex dropdown w-1/2 mx-0 mr-2 finance-cards" [(ngModel)]="selectedYear"
+                        (ionChange)="typeChange()">
+              <ion-select-option *ngFor="let year of years" [value]="year">{{year}}</ion-select-option>
+            </ion-select>
+            <ion-select interface="popover" placeholder="Select a month" class="rounded-3xl flex justify-center w-1/2 mx-0 finance-cards" [(ngModel)]="selectedMonth"
+                        (ionChange)="typeChange()">
+              <div *ngFor="let month of months">
+                <ion-select-option *ngIf="displayMonths(month.value)"
+                                   [value]="month.value">{{month.name}}</ion-select-option>
+              </div>
+            </ion-select>
+        </div>
+        <div class="m-2.5 md:my-0 md:h-1/2 md:flex md:items-center">
+            <ion-select interface="popover" class="rounded-3xl flex justify-center w-full mx-0 finance-cards" [(ngModel)]="subsOrCategory" (ionChange)="typeChange()">
+              <ion-select-option [value]="'category'">{{'finances.category' | translate}}</ion-select-option>
+              <ion-select-option [value]="'subscription'">{{'finances.subscription' | translate}}</ion-select-option>
+            </ion-select>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="flex flex-col w-full">
+      <div class="flex flex-col m-4" *ngIf="subsOrCategory==='subscription'">
+        <div class="-m-1.5 overflow-x-auto">
+          <div class=" min-w-full inline-block align-middle">
+            <div class="border rounded-lg overflow-hidden dark:border-gray-700 dark:shadow-gray-900">
+              <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead class="bg-gray-50 dark:bg-gray-700">
+                <tr>
+                  <th scope="col"
+                      class="px-6 py-3 text-left text-base font-bold uppercase">{{'finances.subscription' | translate}}
+                  </th>
+                  <th scope="col"
+                      class="px-6 py-3 text-left text-base font-bold uppercase">{{'finances.expenses' | translate}}
+                  </th>
+                </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <tr *ngFor="let item of subsTotal">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ">{{item.title}}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm">{{item.price}}{{currency| translate}}</td>
+
+                </tr>
+
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col m-4" *ngIf="subsOrCategory==='category'">
+        <div class="-m-1.5 overflow-x-auto">
+          <div class="min-w-full inline-block align-middle">
+            <div class="border rounded-lg overflow-hidden dark:border-gray-700 dark:shadow-gray-900">
+              <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead class="bg-gray-50 dark:bg-gray-700">
+                <tr>
+                  <th scope="col"
+                      class="px-6 py-3 text-left text-base font-bold uppercase">{{'finances.category' | translate}}
+                  </th>
+                  <th scope="col"
+                      class="px-6 py-3 text-left text-base font-bold uppercase">{{'finances.expenses' | translate}}
+                  </th>
+                </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <tr *ngFor="let item of categoryTotal">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ">{{item.category.title}}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm">{{item.total}}{{currency| translate}}</td>
+
+                </tr>
+
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </ion-card>
 </ion-content>

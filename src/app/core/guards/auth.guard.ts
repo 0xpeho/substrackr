@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import {START_SCREEN} from "../constants/router.constants";
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class AuthGuard implements CanActivate {
     const isAuth = this.authService.isAuthenticated().getValue();
 
     if (!isAuth) {
-      this.router.navigate(['/sign-in']);
+      this.router.navigate([START_SCREEN],{replaceUrl:true});
       return false;
     }
     return true;

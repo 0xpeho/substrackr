@@ -1,6 +1,10 @@
 import {IsNotEmpty} from 'class-validator'
+import {CategoryDto} from "./category.dto";
 
 export class SubscriptionDto {
+
+    id: string;
+
     @IsNotEmpty()
     title: string;
 
@@ -11,17 +15,18 @@ export class SubscriptionDto {
     @IsNotEmpty()
     price: number;
 
-    /*
     @IsNotEmpty()
     expirationDate : Date;
 
-     */
+    @IsNotEmpty()
+    startDate : Date;
 
     @IsNotEmpty()
     cycle: number;
 
-    category:string;
-
+    category:CategoryDto;
     @IsNotEmpty()
     alerts:boolean;
+    @IsNotEmpty()
+    hasBeenNotified:boolean;
 }

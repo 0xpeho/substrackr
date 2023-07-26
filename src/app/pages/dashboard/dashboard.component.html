@@ -1,6 +1,37 @@
-<app-header></app-header>
-<ion-content [fullscreen]="true">
-  <ion-button fill="clear" [routerLink]="[SUBSCRIPTION]">
-    <ion-icon name="add-outline"></ion-icon>
-  </ion-button>
+<app-header [CurrentTab]="DASHBOARD" [showToolbar]="true" [translationForTitle]="'navigation.dashboard'"></app-header>
+<ion-content class="flex">
+  <div class="justify-center lg:justify-normal xs:flex xs:flex-wrap">
+  <ion-card button="true" (click)="goToCreate()" class="add shadow-inner m-4 rounded-3xl xs:pb-0 xs:w-[320px] xs:h-[200px]">
+    <ion-card-content class="xs:h-[200px] flex justify-center items-center">
+        <ion-icon name="add-outline" size="large" color="light"></ion-icon>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngFor="let sub of subs;let i= index" button="true" (click)="openCard(i)" class="m-4 rounded-3xl xs:h-[200px] xs:w-[320px]">
+    <div *ngIf="sub.hasBeenNotified" class="red-dot"></div>
+    <div class="grid grid-flow-col w-full p-4 items-center" [ngClass]="countProperties(sub)">
+      <div class="flex">
+        <div class="w-1/2"> <ion-card-title>{{sub.title}}</ion-card-title></div>
+        <div class="w-1/2"> <ion-card-title class="text-end">{{sub.price}}{{settingsDto.currency | translate}}</ion-card-title></div>
+      </div>
+      <ion-text *ngIf="sub.description">{{sub.description}}</ion-text>
+      <div class="flex" *ngIf="sub.paymentType">
+      <ion-text class="font-bold mr-2">{{'subscription.paymentType'| translate}}: </ion-text>
+      <ion-text class="font-normal">{{sub.paymentType}}</ion-text>
+      </div>
+      <div class="flex">
+        <ion-text class="font-bold mr-2">{{'subscription.category'| translate}}: </ion-text>
+        <ion-text class="font-normal">{{sub.category.title}}</ion-text>
+      </div>
+      <div class="flex items-center">
+        <ion-text class="font-bold mr-2 min-w-fit">{{'subscription.nextPayment'| translate}}:</ion-text>
+        <ion-text class="w-last-row font-normal">{{sub.expirationDate}}</ion-text>
+        <ion-text class="text-end">
+          <ion-icon *ngIf="sub.alerts" name="notifications-outline"></ion-icon>
+          <ion-icon *ngIf="!sub.alerts" name="notifications-off-outline"></ion-icon>
+        </ion-text>
+      </div>
+      </div>
+  </ion-card>
+  </div>
 </ion-content>

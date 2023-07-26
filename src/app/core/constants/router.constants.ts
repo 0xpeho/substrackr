@@ -1,4 +1,9 @@
-export const DASHBOARD = '/tabs/dashboard';
+export const DASHBOARD = '/dashboard';
+export const FINANCES = '/finances';
+export const SETTINGS = '/settings';
 export const START_SCREEN = '/start-screen'
 export const SIGN_IN = '/sign-in'
 export const SIGN_UP = '/sign-up'
+export const SIGN_UP_FROM_GUEST = '/sign-up/from-guest'
+export const SUBSCRIPTION = '/subscription'
+export const NEW_SUBSCRIPTION = '/new-subscription'

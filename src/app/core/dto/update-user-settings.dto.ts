@@ -3,8 +3,9 @@ import { LanguageEnum } from "../enum/language.enum";
 import { ThemeEnum } from "../enum/theme.enum";
 import { CurrencyEnum } from "../enum/currency.enum";
 
-export class UpdateUserDto {
+export class UpdateUserSettingsDto {
 
+  deviceId:string;
   @IsOptional()
   @IsEnum(LanguageEnum)
   language?: LanguageEnum;

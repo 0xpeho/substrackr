@@ -1,0 +1,22 @@
+ion-card{
+  --color:var(--ion-text-color)
+}
+
+
+
+.table-body{
+  background-color: var(--ion-card-background) !important;
+}
+
+.finance-cards{
+  background-color: var(--ion-background-color);
+}
+
+
+
+ion-select::part(container) {
+  margin:auto;
+  --highlight-color: none;
+}
+
+
