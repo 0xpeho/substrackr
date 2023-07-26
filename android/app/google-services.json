@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1024855006502",
+    "project_id": "subtrakr",
+    "storage_bucket": "subtrakr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1024855006502:android:8ab5d50c5cc63b9f42f5e7",
+        "android_client_info": {
+          "package_name": "bytero.subtrakr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1024855006502-v4piumofnst9lnk5919gpiibp0u8c9np.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9PhLPqVGHyluUDXDu-JsaDEAGnzVXbtM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1024855006502-v4piumofnst9lnk5919gpiibp0u8c9np.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1024855006502-9tot52thdpk605t08rsq5frfpbdfi0sf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "bytero.subtrakr"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
