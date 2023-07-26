@@ -37,6 +37,8 @@ export class Settings implements OnDestroy,OnInit{
   DARK: ThemeEnum= ThemeEnum.DARK;
   LIGHT: ThemeEnum= ThemeEnum.LIGHT;
   SIGN_UP_FROM_GUEST: string = SIGN_UP_FROM_GUEST;
+  ibedU: string='w';
+  ibedA: number=1;
 
 
   constructor(
@@ -87,6 +89,8 @@ export class Settings implements OnDestroy,OnInit{
     this.language=settings.language
     this.currency=settings.currency
     this.colorScheme=settings.theme
+    this.ibedA=settings.informBeforeExpirationDateAmount
+    this.ibedU=settings.informBeforeExpirationDateUnit
     this.showAlerts= Capacitor.getPlatform()!=='web';
     this.isUserGuest= await this.httpService.isUserGuest();
   }
@@ -135,6 +139,12 @@ export class Settings implements OnDestroy,OnInit{
     await this.httpService.updateUserSettingsForDevice({currency: this.currency,deviceId:this.deviceId})
   }
 
+  async saveIbedA() {
+    await this.httpService.updateUserSettingsForDevice({informBeforeExpirationDateAmount: this.ibedA,deviceId:this.deviceId})
+  }
+  async saveIbedU() {
+    await this.httpService.updateUserSettingsForDevice({informBeforeExpirationDateUnit: this.ibedU,deviceId:this.deviceId})
+  }
   async signOut(){
     await this.authService.onSignOut()
     await this.router.navigate([START_SCREEN], {replaceUrl: true});

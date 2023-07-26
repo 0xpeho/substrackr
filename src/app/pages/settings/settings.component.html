@@ -58,6 +58,41 @@
   </ion-item>
   </ion-list>
 
+    <ion-list inset="true">
+      <ion-item>
+        <ion-label class="max-w-fit">{{'settings.notify_1st'|translate}}</ion-label>
+        <ion-select
+          class="always-flip"
+          toggleIcon="caret-down-sharp"
+          interface="popover"
+          placeholder="Select cycle"
+          [(ngModel)]="ibedA"
+          (ionChange)="saveIbedA()"
+        >
+          <ion-select-option [value]="1">1</ion-select-option>
+          <ion-select-option [value]="2">2</ion-select-option>
+          <ion-select-option [value]="3">3</ion-select-option>
+          <ion-select-option [value]="4">4</ion-select-option>
+          <ion-select-option [value]="5">5</ion-select-option>
+          <ion-select-option [value]="6">6</ion-select-option>
+          <ion-select-option [value]="7">7</ion-select-option>
+        </ion-select>
+        <ion-select
+          class="always-flip"
+          toggleIcon="caret-down-sharp"
+          interface="popover"
+          placeholder="Select cycle"
+          [(ngModel)]="ibedU"
+          (ionChange)="saveIbedU()"
+        >
+          <ion-select-option [value]="'d'">{{'settings.day' | translate}}</ion-select-option>
+          <ion-select-option [value]="'w'">{{'settings.week' | translate}}</ion-select-option>
+          <ion-select-option [value]="'m'">{{'settings.month' | translate}}</ion-select-option>
+        </ion-select>
+        <ion-label class="max-w-fit">{{'settings.notify_2nd'|translate}}</ion-label>
+      </ion-item>
+    </ion-list>
+
   <ion-button *ngIf="isUserGuest" (click)="goToSignUpFromGuest()"
               fill="clear">{{'settings.createFromGuest' | translate}}</ion-button>
   <ion-button *ngIf="!isUserGuest" (click)="signOut()" fill="clear"

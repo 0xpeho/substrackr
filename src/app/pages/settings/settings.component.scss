@@ -5,3 +5,9 @@ div.item-native{
 ion-select::part(container) {
   --highlight-color: none;
 }
+
+ion-item::part(native) {
+  .item-inner {
+    justify-content: space-around;
+  }
+}

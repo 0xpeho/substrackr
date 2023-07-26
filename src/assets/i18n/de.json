@@ -19,7 +19,12 @@
     "language": "Sprache",
     "currency": "Währung",
     "sign-out": "Abmelden",
-    "createFromGuest": "Konto from Gastkonto erstellen"
+    "createFromGuest": "Konto from Gastkonto erstellen",
+    "notify_1st": "Erinnere mich",
+    "notify_2nd": "vor Ablauf des Abos",
+    "day": "Tag",
+    "week": "Woche",
+    "month": "Monat"
   },
   "subscription": {
     "title": "Titel",
@@ -80,6 +85,5 @@
     "smallCase": "Min. 1 Kleinbuchstabe",
     "specialChar": "Min. 1 spezial Zeichen",
     "email": "Ungültige Email Adresse"
-
   }
 }

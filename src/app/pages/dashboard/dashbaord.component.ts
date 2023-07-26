@@ -36,7 +36,7 @@ export class Dashboard implements OnInit,OnDestroy{
       }
     });
   }
-    async init(){
+  async init(){
     try {
       //const fp =(await FingerprintJS.load()).get()
       let deviceId=Capacitor.getPlatform()==='web'? 'web' :(await Device.getId()).identifier

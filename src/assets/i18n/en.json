@@ -19,7 +19,12 @@
     "language": "Language",
     "currency": "Currency",
     "sign-out": "Sign out",
-    "createFromGuest": "Create a Account from Guest Account"
+    "createFromGuest": "Create a Account from Guest Account",
+    "notify_1st": "Remind me ",
+    "notify_2nd": "before Sub expiration",
+    "day": "Day",
+    "week": "Week",
+    "month": "Month"
   },
   "subscription": {
     "title": "Title",
